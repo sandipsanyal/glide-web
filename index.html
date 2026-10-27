@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glide</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  html, body { margin: 0; height: 100%; background: #f6f7fb; }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .fallback { position: fixed; inset: 0; display: grid; place-items: center; font: 15px/1.5 "Segoe UI", system-ui, sans-serif; color: #5b6275; }
+  .fallback a { color: #3d3dd6; }
+</style>
+</head>
+<body>
+<!-- Shown only for a moment while the app loads, or if the browser blocks the embedded page -->
+<div class="fallback">
+  <p>Loading Glide&hellip; If nothing appears, <a id="direct" href="#" target="_blank" rel="noopener">open Glide in a new tab</a>.</p>
+</div>
+<iframe id="app" title="Glide Home" allow="geolocation; microphone; camera; clipboard-read; clipboard-write"></iframe>
+<script>
+  // Glide Home web link (make.powerapps.com > Apps > Glide Home > Details > Web link)
+  var APP = "https://apps.powerapps.com/play/e/default-990ede14-26f4-4677-89b9-8a849e6f6a86/a/9118f55f-d92b-4578-bb47-11291c01392f?tenantId=990ede14-26f4-4677-89b9-8a849e6f6a86";
+  var embed = APP + "&source=website&screenColor=rgba(246,247,251,1)";
+  // pass on anything after ? on glide.techylla.com, e.g. glide.techylla.com/?req=12 (readable in the app with Param())
+  if (location.search.length > 1) embed += "&" + location.search.slice(1);
+  document.getElementById("app").src = embed;
+  document.getElementById("direct").href = APP;
+</script>
+</body>
+</html>
