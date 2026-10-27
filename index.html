@@ -19,13 +19,19 @@
 </div>
 <iframe id="app" title="Glide Home" allow="geolocation; microphone; camera; clipboard-read; clipboard-write"></iframe>
 <script>
-  // Glide Home web link (make.powerapps.com > Apps > Glide Home > Details > Web link)
-  var APP = "https://apps.powerapps.com/play/e/default-990ede14-26f4-4677-89b9-8a849e6f6a86/a/9118f55f-d92b-4578-bb47-11291c01392f?tenantId=990ede14-26f4-4677-89b9-8a849e6f6a86";
-  var embed = APP + "&source=website&screenColor=rgba(246,247,251,1)";
-  // pass on anything after ? on glide.techylla.com, e.g. glide.techylla.com/?req=12 (readable in the app with Param())
-  if (location.search.length > 1) embed += "&" + location.search.slice(1);
+  // Which Glide app to show: ?a=<app id> (set by Glide Home's buttons); no ?a = Glide Home.
+  var ENV = "https://apps.powerapps.com/play/e/default-990ede14-26f4-4677-89b9-8a849e6f6a86/a/";
+  var TENANT = "tenantId=990ede14-26f4-4677-89b9-8a849e6f6a86";
+  var HOME = "9118f55f-d92b-4578-bb47-11291c01392f";
+  var q = new URLSearchParams(location.search);
+  var id = q.get("a") || HOME;
+  if (!/^[0-9a-f-]{36}$/i.test(id)) id = HOME;
+  q.delete("a");
+  var APP = ENV + id + "?" + TENANT;
+  var rest = q.toString();                      // e.g. task=12 or screen=start, read in the app with Param()
+  var embed = APP + "&source=website&screenColor=rgba(246,247,251,1)" + (rest ? "&" + rest : "");
   document.getElementById("app").src = embed;
-  document.getElementById("direct").href = APP;
+  document.getElementById("direct").href = APP + (rest ? "&" + rest : "");
 </script>
 </body>
 </html>
